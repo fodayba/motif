@@ -1,0 +1,6 @@
+export * from './entities/inventory-item'
+export * from './enums/inventory-item-status'
+export * from './repositories/inventory-item-repository'
+export * from './value-objects/item-sku'
+export * from './value-objects/stock-quantity'
+export * from './value-objects/storage-location'

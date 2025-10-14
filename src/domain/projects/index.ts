@@ -1,0 +1,5 @@
+export * from './entities/project'
+export * from './repositories/project-repository'
+export * from './value-objects/project-code'
+export * from './value-objects/project-location'
+export * from './value-objects/project-name'

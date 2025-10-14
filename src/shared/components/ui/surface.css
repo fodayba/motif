@@ -1,0 +1,28 @@
+.ui-surface {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border-subtle);
+  box-shadow: var(--shadow-soft);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.ui-surface--muted {
+  background-color: var(--color-surface-muted);
+}
+
+.ui-surface--padding-none {
+  padding: 0;
+}
+
+.ui-surface--padding-sm {
+  padding: 0.75rem;
+}
+
+.ui-surface--padding-md {
+  padding: 1.25rem;
+}
+
+.ui-surface--padding-lg {
+  padding: 2rem;
+}

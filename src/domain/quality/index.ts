@@ -1,0 +1,6 @@
+export * from './entities/safety-incident'
+export * from './enums/incident-severity'
+export * from './enums/incident-status'
+export * from './repositories/safety-incident-repository'
+export * from './value-objects/corrective-action'
+export * from './value-objects/incident-location'

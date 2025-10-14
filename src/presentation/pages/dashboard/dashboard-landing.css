@@ -1,0 +1,55 @@
+.dashboard-landing {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.dashboard-landing__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.dashboard-landing__label {
+  margin: 0;
+  color: var(--color-text-subtle);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.dashboard-landing__title {
+  margin: 0.25rem 0 0;
+  font-size: 2rem;
+}
+
+.dashboard-landing__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.dashboard-landing__card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.dashboard-landing__card-title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.dashboard-landing__form {
+  display: grid;
+  gap: 1rem;
+}
+
+.dashboard-landing__list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--color-text-subtle);
+  display: grid;
+  gap: 0.5rem;
+}

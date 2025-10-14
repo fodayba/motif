@@ -1,0 +1,40 @@
+.ui-text-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font: inherit;
+  color: var(--color-text);
+}
+
+.ui-text-field__label {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.ui-text-field__input {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-surface);
+  color: inherit;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ui-text-field__input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--color-focus-soft);
+  outline: none;
+}
+
+.ui-text-field__input--error {
+  border-color: var(--color-danger);
+}
+
+.ui-text-field__message {
+  font-size: 0.85rem;
+  color: var(--color-text-subtle);
+}
+
+.ui-text-field__message--error {
+  color: var(--color-danger);
+}

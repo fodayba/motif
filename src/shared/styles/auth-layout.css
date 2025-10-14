@@ -1,0 +1,296 @@
+.auth-layout {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1.5rem, 5vw, 3rem);
+  background:
+    radial-gradient(120% 120% at 15% 20%, rgba(59, 130, 246, 0.35), transparent 60%),
+    linear-gradient(180deg, #050b16 0%, #0f172a 55%, #111827 100%);
+}
+
+.auth-layout__inner {
+  width: min(1200px, 100%);
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  .auth-page-shell {
+    height: 100vh;
+    background: linear-gradient(135deg, #f8fafc 0%, #f5f5f4 100%);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1c1917;
+    overflow: hidden;
+  }
+
+  .auth-container {
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+  }
+
+  .branding-column {
+    background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 100%);
+    color: #1c1917;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .branding-column::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(120, 113, 108, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(168, 162, 158, 0.02) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .branding-nav,
+  .brand-identity,
+  .branding-content,
+  .branding-footer {
+    position: relative;
+    z-index: 2;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+
+  .branding-nav {
+    padding-top: 2rem;
+  }
+
+  .nav-back {
+    background: none;
+    border: none;
+    color: #78716c;
+    cursor: pointer;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    text-decoration: none;
+  }
+
+  .nav-back:hover {
+    background: rgba(120, 113, 108, 0.08);
+    color: #57534e;
+    transform: translateX(-2px);
+  }
+
+  .nav-back svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .brand-identity {
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+  }
+
+  .brand-name {
+    font-size: 1.75rem;
+    font-weight: 300;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.75rem;
+  }
+
+  .brand-subtitle {
+    margin: 0;
+    color: #78716c;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+
+  .branding-content {
+    flex: 1;
+    padding-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 420px;
+  }
+
+  .content-header {
+    margin-bottom: 4rem;
+  }
+
+  .welcome-eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #a8a29e;
+    margin-bottom: 1rem;
+  }
+
+  .welcome-title {
+    font-size: 2.25rem;
+    font-weight: 200;
+    letter-spacing: -0.03em;
+    margin: 0 0 1rem;
+  }
+
+  .welcome-subtitle {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #78716c;
+    margin: 0;
+  }
+
+  .value-propositions {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .value-prop {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .prop-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.5rem;
+    background: rgba(28, 25, 23, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .prop-text {
+    font-size: 0.9rem;
+    color: #44403c;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+  }
+
+  .branding-footer {
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+  }
+
+  .quality-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.2rem;
+    background: linear-gradient(135deg, rgba(28, 25, 23, 0.04) 0%, rgba(28, 25, 23, 0.08) 100%);
+    border: 1px solid rgba(28, 25, 23, 0.08);
+    border-radius: 2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #44403c;
+    letter-spacing: -0.005em;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .quality-badge:hover {
+    background: linear-gradient(135deg, rgba(28, 25, 23, 0.08) 0%, rgba(28, 25, 23, 0.12) 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(28, 25, 23, 0.08);
+  }
+
+  .quality-badge svg {
+    width: 14px;
+    height: 14px;
+    color: #d4af37;
+    filter: drop-shadow(0 1px 2px rgba(212, 175, 55, 0.2));
+  }
+
+  .branding-footer__meta {
+    margin-top: 1.5rem;
+    font-size: 0.8125rem;
+    color: #78716c;
+  }
+
+  .form-column {
+    background: #ffffff;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .form-content {
+    max-width: 420px;
+    margin: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+  }
+
+  .form-footer {
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.8125rem;
+    color: #a8a29e;
+  }
+
+  .form-footer a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .form-footer a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 1024px) {
+    .branding-nav,
+    .brand-identity,
+    .branding-content,
+    .branding-footer {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+
+    .content-header .welcome-title {
+      font-size: 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .auth-container {
+      grid-template-columns: 1fr;
+    }
+
+    .branding-column {
+      display: none;
+    }
+
+    .form-column {
+      padding: 1.5rem;
+      align-items: stretch;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .form-column {
+      padding: 1.25rem;
+    }
+
+    .form-footer {
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  }
+  

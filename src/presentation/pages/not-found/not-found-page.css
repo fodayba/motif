@@ -1,0 +1,22 @@
+.not-found {
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found__card {
+  max-width: 400px;
+  display: grid;
+  gap: 1rem;
+  text-align: center;
+}
+
+.not-found__title {
+  margin: 0;
+}
+
+.not-found__message {
+  margin: 0;
+  color: var(--color-text-subtle);
+}
