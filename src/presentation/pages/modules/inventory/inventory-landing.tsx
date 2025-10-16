@@ -1,229 +1,356 @@
+import { useNavigate } from 'react-router-dom'
+import { 
+  BarChart3, 
+  ArrowLeftRight, 
+  ClipboardList, 
+  ShoppingBag, 
+  Package,
+  Layers
+} from 'lucide-react'
 import { PlaceholderChart, RadialGauge, Sparkline, TrendBadge } from '@shared/components/data-viz'
 import { Button, Surface } from '@shared/components/ui'
 import '../module-scaffold.css'
 import './inventory-landing.css'
 
-const coverageMetrics = [
+const summaryMetrics = [
   {
-    id: 'coverage',
-    label: 'Average coverage',
-    value: '41 days',
-    detail: '+6 day buffer vs target',
+    id: 'turnover',
+    label: 'Inventory turnover',
+    value: '6.2x',
+    trend: '+0.8x vs last quarter',
     tone: 'positive' as const,
   },
   {
-    id: 'stockouts',
-    label: 'Open stockouts',
-    value: '3 SKUs',
-    detail: 'High-risk: epoxy resin, rebar #6, PPE kits',
-    tone: 'negative' as const,
-  },
-  {
-    id: 'turns',
-    label: 'Inventory turns (FYTD)',
-    value: '7.8×',
-    detail: 'Up 0.6× vs last quarter',
+    id: 'stockout',
+    label: 'Stockout rate',
+    value: '2.1%',
+    trend: '-0.6% improvement',
     tone: 'positive' as const,
   },
   {
-    id: 'inbound',
-    label: 'Inbound shipments',
-    value: '24 loads',
-    detail: '18 on-time · 6 monitored',
+    id: 'accuracy',
+    label: 'Count accuracy',
+    value: '98.3%',
+    trend: 'Target ≥ 95%',
+    tone: 'positive' as const,
+  },
+  {
+    id: 'obsolete',
+    label: 'Obsolete inventory',
+    value: '$87k',
+    trend: '3.2% of total value',
     tone: 'neutral' as const,
   },
 ]
 
-const transferQueue = [
-  {
-    id: 'TR-1942',
-    from: 'Dallas Central Yard',
-    to: 'Austin Site B',
-    items: 540,
-    eta: 'Arrives in 4h',
-    status: 'in-transit' as const,
-    statusLabel: 'In transit',
-  },
-  {
-    id: 'TR-1941',
-    from: 'Houston Industrial Park',
-    to: 'Dallas Central Yard',
-    items: 320,
-    eta: 'Loading dock 3',
-    status: 'loading' as const,
-    statusLabel: 'Loading',
-  },
-  {
-    id: 'TR-1937',
-    from: 'Austin Logistics Hub',
-    to: 'Site C (Downtown)',
-    items: 210,
-    eta: 'Delayed · weather hold',
-    status: 'delayed' as const,
-    statusLabel: 'Delayed',
-  },
-]
+const turnoverSeries = [5.2, 5.4, 5.7, 5.9, 6.0, 6.1, 6.2]
+const stockoutSeries = [3.8, 3.5, 3.2, 2.9, 2.6, 2.3, 2.1]
+const fillRate = 97.9
+const abcMeta = {
+  aCount: 124,
+  bCount: 312,
+  cCount: 1580,
+}
 
 const reorderAlerts = [
   {
-    id: 'SKU-4411',
-    sku: 'Steel studs · 20ga',
-    location: 'Austin Site B',
-    coverage: '12 days',
-    recommendation: 'Rush supplier PO · maintain 98% service level',
+    id: 'ITM-2847',
+    item: 'Structural steel beam (W14x90)',
+    current: 8,
+    reorder: 25,
+    recommended: 120,
+    status: 'critical' as const,
+    statusLabel: 'Critical',
+    supplier: 'Allied Steel Supply',
   },
   {
-    id: 'SKU-3290',
-    sku: 'Concrete admixture A2',
-    location: 'Dallas Central Yard',
-    coverage: '9 days',
-    recommendation: 'Auto-create PO · lot expiry 11/14',
+    id: 'ITM-1923',
+    item: 'Concrete rebar (#5, Grade 60)',
+    current: 240,
+    reorder: 500,
+    recommended: 850,
+    status: 'warning' as const,
+    statusLabel: 'Low stock',
+    supplier: 'Metro Building Materials',
   },
   {
-    id: 'SKU-1204',
-    sku: 'PPE kits · Safety v5',
-    location: 'Houston Industrial Park',
-    coverage: '6 days',
-    recommendation: 'Trigger vendor consignment drawdown',
-  },
-]
-
-const serviceLevelSeries = [95.2, 95.8, 96.1, 96.8, 97.1, 97.4, 97.6]
-const coverageSeries = [38, 39, 40, 41, 42, 41, 41]
-const transferReliability = 76
-
-const inventoryHeatmap = [
-  {
-    id: 'dallas',
-    region: 'Dallas Metro',
-    turns: 8.4,
-    replenishment: 'Green · 2 days ahead',
-    slowMovers: 4,
-    notes: 'Rebar coils accumulating in zone D',
+    id: 'ITM-3412',
+    item: 'HVAC ductwork (galvanized)',
+    current: 12,
+    reorder: 30,
+    recommended: 60,
+    status: 'warning' as const,
+    statusLabel: 'Low stock',
+    supplier: 'Climate Systems Inc',
   },
   {
-    id: 'austin',
-    region: 'Austin Corridor',
-    turns: 6.9,
-    replenishment: 'Amber · align with weekly pour schedule',
-    slowMovers: 7,
-    notes: 'Electrical conduit oversupply · coordinate with procurement',
-  },
-  {
-    id: 'houston',
-    region: 'Houston Coastal',
-    turns: 5.8,
-    replenishment: 'Green · balanced',
-    slowMovers: 2,
-    notes: 'Anchor bolts trending higher usage post storm repairs',
+    id: 'ITM-0891',
+    item: 'Electrical conduit (EMT, 2")',
+    current: 82,
+    reorder: 150,
+    recommended: 200,
+    status: 'neutral' as const,
+    statusLabel: 'Monitor',
+    supplier: 'Electrical Wholesale',
   },
 ]
 
-const receivingBacklog = [
+const warehouseSnapshots = [
   {
-    id: 'RCV-8821',
-    supplier: 'Concrete Supply Co.',
-    dock: 'Dock 1',
-    eta: '08:45',
-    items: 4,
-    status: 'scheduled' as const,
-    statusLabel: 'Scheduled',
+    id: 'central',
+    warehouse: 'Central Distribution',
+    skus: 847,
+    value: '$2.4M',
+    utilization: 78,
+    trend: '+3% vs last month',
   },
   {
-    id: 'RCV-8820',
-    supplier: 'Steelcraft Manufacturing',
-    dock: 'Dock 2',
-    eta: 'Waiting',
-    items: 12,
-    status: 'arrived' as const,
-    statusLabel: 'Arrived',
+    id: 'north',
+    warehouse: 'North Site Yard',
+    skus: 412,
+    value: '$890K',
+    utilization: 92,
+    trend: 'Near capacity',
   },
   {
-    id: 'RCV-8817',
-    supplier: 'Metro Safety Gear',
-    dock: 'Dock 4',
-    eta: 'Deferred to 14:30',
-    items: 6,
-    status: 'delayed' as const,
-    statusLabel: 'Delayed',
+    id: 'south',
+    warehouse: 'South Staging Area',
+    skus: 268,
+    value: '$520K',
+    utilization: 64,
+    trend: '+8% pending transfers',
+  },
+]
+
+const recentActivity = [
+  {
+    id: 'act-1',
+    time: '14:32',
+    type: 'Transfer',
+    message: 'Transfer TRN-8847 received at North Site Yard (24 items)',
+    level: 'success' as const,
+    levelLabel: 'Complete',
+  },
+  {
+    id: 'act-2',
+    time: '13:18',
+    type: 'Cycle Count',
+    message: 'Variance detected: Plumbing fixtures zone (-8 units)',
+    level: 'warning' as const,
+    levelLabel: 'Review',
+  },
+  {
+    id: 'act-3',
+    time: '11:45',
+    type: 'Requisition',
+    message: 'REQ-4821 approved: Downtown Tower electrical materials',
+    level: 'info' as const,
+    levelLabel: 'Approved',
+  },
+  {
+    id: 'act-4',
+    time: '09:22',
+    type: 'Batch',
+    message: 'Batch BATCH-2847 expiring in 14 days (cement mix, 180 bags)',
+    level: 'warning' as const,
+    levelLabel: 'Alert',
+  },
+]
+
+const expiringBatches = [
+  {
+    id: 'BATCH-2847',
+    item: 'Portland cement mix',
+    quantity: 180,
+    unit: 'bags',
+    expiry: 'in 14 days',
+    location: 'Central Distribution, Zone B-4',
+    status: 'warning' as const,
+    statusLabel: 'Expiring soon',
+  },
+  {
+    id: 'BATCH-1903',
+    item: 'Epoxy resin adhesive',
+    quantity: 24,
+    unit: 'gallons',
+    expiry: 'in 21 days',
+    location: 'North Site Yard, Chem storage',
+    status: 'warning' as const,
+    statusLabel: 'Monitor',
+  },
+  {
+    id: 'BATCH-3412',
+    item: 'Hydraulic fluid ISO 68',
+    quantity: 12,
+    unit: 'drums',
+    expiry: 'in 8 days',
+    location: 'South Staging, Fluid bay',
+    status: 'critical' as const,
+    statusLabel: 'Critical',
+  },
+]
+
+const quickActions = [
+  {
+    id: 'dashboard',
+    title: 'Inventory Dashboard',
+    description: 'Stock level KPIs with ABC analysis and reorder alerts',
+    icon: BarChart3,
+    route: '/inventory/dashboard',
+    color: 'blue' as const,
+  },
+  {
+    id: 'batches',
+    title: 'Batch Tracking',
+    description: 'Expiration management with FIFO/FEFO allocation and recall reporting',
+    icon: Layers,
+    route: '/inventory/batches',
+    color: 'green' as const,
+  },
+  {
+    id: 'transfers',
+    title: 'Transfer Management',
+    description: 'Inter-site transfers with route optimization and cost analysis',
+    icon: ArrowLeftRight,
+    route: '/inventory/transfers',
+    color: 'purple' as const,
+  },
+  {
+    id: 'cycle-counts',
+    title: 'Cycle Counts',
+    description: 'Inventory accuracy tracking with variance analysis',
+    icon: ClipboardList,
+    route: '/inventory/cycle-counts',
+    color: 'orange' as const,
+  },
+  {
+    id: 'requisitions',
+    title: 'Requisition Management',
+    description: 'Material requests with approval workflows and fulfillment tracking',
+    icon: ShoppingBag,
+    route: '/inventory/requisitions',
+    color: 'red' as const,
+  },
+  {
+    id: 'warehouse',
+    title: 'Warehouse Operations',
+    description: 'Pick/pack/ship workflows with bin location management',
+    icon: Package,
+    route: '/inventory/warehouse',
+    color: 'cyan' as const,
   },
 ]
 
 export const InventoryLanding = () => {
+  const navigate = useNavigate()
+
+  const handleNavigate = (route: string) => {
+    navigate(route)
+  }
+
   return (
     <div className="module-scaffold inventory-landing">
-      <header className="module-scaffold__header">
-        <div className="module-scaffold__title">
-          <span className="module-scaffold__eyebrow">Inventory Control</span>
-          <h1 className="module-scaffold__heading">Material visibility and transfer orchestration</h1>
-          <p className="module-scaffold__summary">
-            Synchronise jobsite demand with central stock through proactive transfers, reorder alerts, and
-            receiving discipline. Advanced forecasting and slotting logic from the Angular client will be
-            rebuilt here.
+      <header className="inventory-landing__header">
+        <div>
+          <h1>Inventory & Materials Management</h1>
+          <p className="inventory-landing__header-description">
+            Optimize stock levels, streamline transfers, and maintain accurate inventory control
           </p>
-        </div>
-        <div className="module-scaffold__actions">
-          <Button>New transfer</Button>
-          <Button variant="secondary">Update stock</Button>
         </div>
       </header>
 
       <section className="inventory-landing__metrics">
-        {coverageMetrics.map((metric) => (
+        {summaryMetrics.map((metric) => (
           <Surface key={metric.id} className="inventory-landing__metric" padding="lg">
             <span className="inventory-landing__metric-label">{metric.label}</span>
             <span className="inventory-landing__metric-value">{metric.value}</span>
-            <span className={`inventory-landing__metric-detail metric-detail--${metric.tone}`}>
-              {metric.detail}
+            <span
+              className={`inventory-landing__metric-trend inventory-landing__metric-trend--${metric.tone}`}
+            >
+              {metric.trend}
             </span>
           </Surface>
         ))}
       </section>
 
+      <section className="inventory-landing__quick-actions">
+        <div className="inventory-landing__section-header">
+          <h2>Inventory Management</h2>
+          <p>Access detailed stock tracking, batch management, and warehouse operations tools</p>
+        </div>
+        <div className="inventory-landing__actions-grid">
+          {quickActions.map((action) => {
+            const Icon = action.icon
+            return (
+              <Surface
+                key={action.id}
+                className={`inventory-landing__action-card inventory-landing__action-card--${action.color}`}
+                padding="lg"
+                onClick={() => handleNavigate(action.route)}
+                style={{ cursor: 'pointer' }}
+              >
+                <div className="inventory-landing__action-icon">
+                  <Icon size={24} strokeWidth={1.5} />
+                </div>
+                <div className="inventory-landing__action-content">
+                  <h3 className="inventory-landing__action-title">{action.title}</h3>
+                  <p className="inventory-landing__action-description">{action.description}</p>
+                </div>
+              </Surface>
+            )
+          })}
+        </div>
+      </section>
+
       <section className="module-metrics">
         <div className="module-metrics__grid">
           <Surface className="module-metrics__card" padding="lg">
-            <div className="module-metrics__card-label">Service level</div>
-            <div className="module-metrics__card-value">97.6%</div>
+            <div className="module-metrics__card-label">Inventory turnover</div>
+            <div className="module-metrics__card-value">6.2x</div>
             <div className="module-metrics__card-meta">
-              <TrendBadge delta={1.2} suffix="%" label="vs. last cycle" />
+              <TrendBadge delta={0.8} suffix="x" label="vs. last quarter" />
             </div>
             <Sparkline
-              values={serviceLevelSeries}
-              ariaLabel="Service level trend"
+              values={turnoverSeries}
+              ariaLabel="Inventory turnover trend"
               variant="positive"
             />
           </Surface>
 
           <Surface className="module-metrics__card" padding="lg">
-            <div className="module-metrics__card-label">Average coverage</div>
-            <div className="module-metrics__card-value">41 days</div>
+            <div className="module-metrics__card-label">Stockout rate</div>
+            <div className="module-metrics__card-value">2.1%</div>
             <div className="module-metrics__card-meta">
-              <TrendBadge delta={0.8} suffix=" days" label="buffer change" />
+              <TrendBadge
+                delta={-0.6}
+                suffix="%"
+                label="improvement"
+                positiveIsGood={false}
+              />
             </div>
-            <Sparkline values={coverageSeries} ariaLabel="Coverage days trend" variant="positive" />
+            <Sparkline values={stockoutSeries} ariaLabel="Stockout rate trend" variant="positive" />
           </Surface>
 
           <Surface className="module-metrics__card" padding="lg">
-            <div className="module-metrics__card-label">Transfer reliability</div>
+            <div className="module-metrics__card-label">Order fill rate</div>
             <RadialGauge
-              value={transferReliability}
-              label="On-time"
-              caption="Target 84%"
-              tone="warning"
+              value={fillRate}
+              label="Complete orders"
+              caption="Target ≥ 95%"
+              tone="success"
               size={140}
             />
-            <p className="inventory-landing__region-notes">
-              Weather delays across the Austin corridor hold <strong>3 loads</strong>. Crew reassignment and
-              dynamic dock booking are queued for the next release.
+            <p className="inventory-landing__metric-note">
+              Exceptional fill rate maintained despite 18% volume increase in Q4. JIT replenishment
+              strategy proving effective.
             </p>
           </Surface>
 
           <Surface className="module-metrics__card" padding="lg">
-            <PlaceholderChart title="Slotting optimisation" meta="Coming from IoT feeds">
-              <p className="inventory-landing__region-notes">
-                Reintroduce heatmaps once live telemetry returns. The placeholder reflects where the pick
-                path density chart reappears after the Firebase sync refactor.
+            <PlaceholderChart title="ABC classification" meta="Inventory optimization">
+              <p className="inventory-landing__metric-note">
+                Class A: {abcMeta.aCount} items (80% value) • Class B: {abcMeta.bCount} items (15%) 
+                • Class C: {abcMeta.cCount} items (5%). Rebalancing in progress.
               </p>
             </PlaceholderChart>
           </Surface>
@@ -233,24 +360,23 @@ export const InventoryLanding = () => {
       <section className="inventory-landing__grid">
         <Surface className="inventory-landing__panel" padding="lg">
           <div className="inventory-landing__panel-header">
-            <h2 className="inventory-landing__panel-title">Transfer board</h2>
-            <Button variant="ghost">Open planner</Button>
+            <h2 className="inventory-landing__panel-title">Reorder alerts</h2>
+            <Button variant="ghost">Manage procurement</Button>
           </div>
           <div className="inventory-landing__list">
-            {transferQueue.map((transfer) => (
-              <div key={transfer.id} className="inventory-landing__list-item">
+            {reorderAlerts.map((item) => (
+              <div key={item.id} className="inventory-landing__list-item">
                 <div className="inventory-landing__list-content">
-                  <div className="inventory-landing__list-title">{transfer.id}</div>
-                  <p className="inventory-landing__list-subtitle">
-                    {transfer.from} → {transfer.to}
-                  </p>
+                  <div className="inventory-landing__list-title">{item.item}</div>
+                  <p className="inventory-landing__list-subtitle">{item.supplier}</p>
                   <div className="inventory-landing__list-meta">
-                    <span>{transfer.items} line items</span>
-                    <span>{transfer.eta}</span>
+                    <span>SKU {item.id}</span>
+                    <span>Current: {item.current} units</span>
+                    <span>Reorder: {item.recommended} units</span>
                   </div>
                 </div>
-                <span className={`inventory-landing__tag inventory-landing__tag--${transfer.status}`}>
-                  {transfer.statusLabel}
+                <span className={`inventory-landing__tag inventory-landing__tag--${item.status}`}>
+                  {item.statusLabel}
                 </span>
               </div>
             ))}
@@ -259,20 +385,29 @@ export const InventoryLanding = () => {
 
         <Surface className="inventory-landing__panel" padding="lg">
           <div className="inventory-landing__panel-header">
-            <h2 className="inventory-landing__panel-title">Reorder alerts</h2>
-            <Button variant="ghost">Review MRP</Button>
+            <h2 className="inventory-landing__panel-title">Warehouse status</h2>
+            <Button variant="ghost">View all locations</Button>
           </div>
-          <div className="inventory-landing__list">
-            {reorderAlerts.map((alert) => (
-              <div key={alert.id} className="inventory-landing__list-item inventory-landing__list-item--stacked">
-                <div className="inventory-landing__list-content">
-                  <div className="inventory-landing__list-title">{alert.sku}</div>
-                  <p className="inventory-landing__list-subtitle">{alert.location}</p>
+          <div className="inventory-landing__list inventory-landing__list--compact">
+            {warehouseSnapshots.map((warehouse) => (
+              <div key={warehouse.id} className="inventory-landing__location">
+                <div>
+                  <div className="inventory-landing__list-title">{warehouse.warehouse}</div>
                   <div className="inventory-landing__list-meta">
-                    <span>Coverage {alert.coverage}</span>
-                    <span>{alert.recommendation}</span>
+                    <span>{warehouse.skus} SKUs</span>
+                    <span>{warehouse.value} inventory value</span>
                   </div>
                 </div>
+                <span className="inventory-landing__location-value">
+                  {warehouse.utilization}% utilized
+                </span>
+                <div className="inventory-landing__progress">
+                  <div
+                    className="inventory-landing__progress-value"
+                    style={{ width: `${warehouse.utilization}%` }}
+                  />
+                </div>
+                <span className="inventory-landing__location-trend">{warehouse.trend}</span>
               </div>
             ))}
           </div>
@@ -282,21 +417,20 @@ export const InventoryLanding = () => {
       <section className="inventory-landing__grid inventory-landing__grid--wide">
         <Surface className="inventory-landing__panel" padding="lg">
           <div className="inventory-landing__panel-header">
-            <h2 className="inventory-landing__panel-title">Network performance</h2>
-            <Button variant="ghost">Slotting rules</Button>
+            <h2 className="inventory-landing__panel-title">Recent activity</h2>
+            <Button variant="ghost">View full log</Button>
           </div>
-          <div className="inventory-landing__list">
-            {inventoryHeatmap.map((region) => (
-              <div key={region.id} className="inventory-landing__region">
-                <div className="inventory-landing__region-header">
-                  <div className="inventory-landing__list-title">{region.region}</div>
-                  <span className="inventory-landing__region-turns">{region.turns}× turns</span>
+          <div className="inventory-landing__list inventory-landing__list--stream">
+            {recentActivity.map((event) => (
+              <div key={event.id} className="inventory-landing__stream-item">
+                <div className="inventory-landing__stream-time">{event.time}</div>
+                <div className="inventory-landing__stream-body">
+                  <div className="inventory-landing__list-title">{event.type}</div>
+                  <p className="inventory-landing__list-subtitle">{event.message}</p>
                 </div>
-                <div className="inventory-landing__list-meta">
-                  <span>{region.replenishment}</span>
-                  <span>{region.slowMovers} slow-movers</span>
-                </div>
-                <p className="inventory-landing__region-notes">{region.notes}</p>
+                <span className={`inventory-landing__tag inventory-landing__tag--${event.level}`}>
+                  {event.levelLabel}
+                </span>
               </div>
             ))}
           </div>
@@ -304,22 +438,26 @@ export const InventoryLanding = () => {
 
         <Surface className="inventory-landing__panel" padding="lg">
           <div className="inventory-landing__panel-header">
-            <h2 className="inventory-landing__panel-title">Receiving backlog</h2>
-            <Button variant="ghost">Assign crews</Button>
+            <h2 className="inventory-landing__panel-title">Expiring batches</h2>
+            <Button variant="ghost">Batch management</Button>
           </div>
           <div className="inventory-landing__list">
-            {receivingBacklog.map((load) => (
-              <div key={load.id} className="inventory-landing__list-item">
+            {expiringBatches.map((item) => (
+              <div
+                key={item.id}
+                className="inventory-landing__list-item inventory-landing__list-item--stacked"
+              >
                 <div className="inventory-landing__list-content">
-                  <div className="inventory-landing__list-title">{load.supplier}</div>
-                  <p className="inventory-landing__list-subtitle">{load.dock}</p>
+                  <div className="inventory-landing__list-title">{item.item}</div>
+                  <p className="inventory-landing__list-subtitle">{item.location}</p>
                   <div className="inventory-landing__list-meta">
-                    <span>{load.items} pallets</span>
-                    <span>{load.eta}</span>
+                    <span>Batch {item.id}</span>
+                    <span>{item.quantity} {item.unit}</span>
+                    <span>Expires {item.expiry}</span>
                   </div>
                 </div>
-                <span className={`inventory-landing__tag inventory-landing__tag--${load.status}`}>
-                  {load.statusLabel}
+                <span className={`inventory-landing__tag inventory-landing__tag--${item.status}`}>
+                  {item.statusLabel}
                 </span>
               </div>
             ))}
@@ -328,17 +466,22 @@ export const InventoryLanding = () => {
 
         <Surface className="inventory-landing__panel" padding="lg" variant="muted">
           <div className="inventory-landing__panel-header">
-            <h2 className="inventory-landing__panel-title">Forecast insight</h2>
+            <h2 className="inventory-landing__panel-title">Inventory insights</h2>
           </div>
           <p className="inventory-landing__summary">
-            Demand models anticipate a <strong>14%</strong> surge in structural steel over the next 21 days
-            driven by tower crane sequencing. Balancing transfers now avoids <strong>$68k</strong>
-            expediting spend and keeps service levels above <strong>97%</strong>.
+            Q4 demand forecasting suggests <strong>12% increase</strong> in structural steel requirements.
+            EOQ models recommend adjusting order quantities to optimize carrying costs.
           </p>
           <ul className="inventory-landing__bullets">
-            <li>Coordinate cross-dock waves to cover Austin pour schedule on 10/22.</li>
-            <li>Release vendor managed inventory for PPE kits before the weekend.</li>
-            <li>Apply slow-mover markdown to conduit SKUs in Dallas zone D.</li>
+            <li>
+              Top priority: Clear <strong>BATCH-3412</strong> hydraulic fluid before expiry (8 days).
+            </li>
+            <li>
+              Opportunity: Consolidate <strong>North Site Yard</strong> inventory to free 15% capacity.
+            </li>
+            <li>
+              Next action: Review <strong>TRN-8901</strong> transfer approval for Downtown Tower project.
+            </li>
           </ul>
         </Surface>
       </section>

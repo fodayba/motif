@@ -28,6 +28,25 @@
   gap: var(--space-4);
 }
 
+.inventory-dashboard__button--back {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  padding: var(--space-2);
+  min-width: unset;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.inventory-dashboard__button--back:hover {
+  background: var(--color-surface-elevated);
+  transform: translateY(-1px);
+}
+
 .inventory-dashboard__label {
   font-size: var(--font-size-sm);
   font-weight: 600;
@@ -488,25 +507,15 @@
 }
 
 /* Quick Actions */
+/* Quick Actions */
 .inventory-dashboard__quick-actions {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-xl);
-  padding: var(--space-6);
-}
-
-.inventory-dashboard__quick-actions-title {
-  font-size: var(--font-size-lg);
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--color-text);
-  margin: 0 0 var(--space-5) 0;
+  margin-bottom: var(--space-8);
 }
 
 .inventory-dashboard__quick-actions-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
 }
 
 .quick-action-card {
@@ -514,24 +523,23 @@
   flex-direction: column;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-5);
-  background: var(--color-surface-secondary);
+  padding: var(--space-6);
+  background: var(--color-surface);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-xl);
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .quick-action-card:hover {
-  background: var(--color-surface-hover);
   border-color: var(--color-border);
-  transform: translateY(-2px);
   box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
 }
 
 .quick-action-card__icon {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: var(--radius-lg);
   background: var(--gradient-primary);
   display: flex;

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Plus,
   Search,
@@ -15,7 +16,8 @@ import {
   User,
   FileText,
   TrendingUp,
-  BarChart3
+  BarChart3,
+  ArrowLeft
 } from 'lucide-react'
 import './transfer-management.css'
 
@@ -63,6 +65,7 @@ interface TransferCostAnalysis {
 }
 
 export default function TransferManagement() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [transfers, setTransfers] = useState<Transfer[]>([])
   const [filteredTransfers, setFilteredTransfers] = useState<Transfer[]>([])
@@ -283,6 +286,13 @@ export default function TransferManagement() {
       {/* Header */}
       <div className="transfer-management__header">
         <div className="header-left">
+          <button
+            className="transfer-management__button transfer-management__button--back"
+            onClick={() => navigate('/inventory')}
+            title="Back to Inventory"
+          >
+            <ArrowLeft size={20} />
+          </button>
           <h1 className="page-title">Transfer Management</h1>
           <p className="page-subtitle">Manage inter-warehouse material transfers</p>
         </div>

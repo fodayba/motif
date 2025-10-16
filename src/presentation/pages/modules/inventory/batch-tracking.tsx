@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Search,
   Filter,
@@ -12,7 +13,8 @@ import {
   XCircle,
   ChevronRight,
   ChevronLeft,
-  Shield
+  Shield,
+  ArrowLeft
 } from 'lucide-react'
 import './batch-tracking.css'
 
@@ -62,6 +64,7 @@ interface AllocationResult {
 type AllocationStrategy = 'fifo' | 'fefo'
 
 export default function BatchTracking() {
+  const navigate = useNavigate()
   const [batches, setBatches] = useState<Batch[]>([])
   const [filteredBatches, setFilteredBatches] = useState<Batch[]>([])
   const [selectedBatch, setSelectedBatch] = useState<Batch | null>(null)
@@ -308,16 +311,17 @@ export default function BatchTracking() {
     <div className="batch-tracking">
       <div className="batch-tracking__header">
         <div className="batch-tracking__header-left">
-          <div>
-            <div className="batch-tracking__label">BATCH & LOT TRACKING</div>
-            <h1 className="batch-tracking__title">Batch Tracking</h1>
-          </div>
-        </div>
-        <div className="batch-tracking__header-actions">
-          <button className="batch-tracking__button batch-tracking__button--secondary" onClick={generateRecallReport}>
-            <AlertCircle size={18} />
-            Generate Recall Report
+          <button 
+            className="batch-tracking__button batch-tracking__button--back"
+            onClick={() => navigate('/inventory')}
+            title="Back to Inventory"
+          >
+            <ArrowLeft size={20} />
           </button>
+          <div>
+            <p className="batch-tracking__label">INVENTORY MANAGEMENT</p>
+            <h1 className="batch-tracking__title">Batch & Lot Tracking</h1>
+          </div>
         </div>
       </div>
 

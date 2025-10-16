@@ -28,6 +28,25 @@
   gap: var(--space-4);
 }
 
+.batch-tracking__button--back {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  padding: var(--space-2);
+  min-width: unset;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.batch-tracking__button--back:hover {
+  background: var(--color-surface-elevated);
+  transform: translateY(-1px);
+}
+
 .batch-tracking__label {
   font-size: var(--font-size-sm);
   font-weight: 600;

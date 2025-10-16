@@ -5,16 +5,55 @@
   justify-content: center;
   padding: var(--space-6);
   background: var(--color-surface-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+.error-boundary__backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 50% 30%,
+    var(--color-surface-secondary) 0%,
+    transparent 50%
+  );
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .error-boundary__container {
-  max-width: 600px;
+  max-width: 560px;
   width: 100%;
+  position: relative;
+  z-index: 1;
+  animation: errorFadeIn 0.4s ease-out;
+}
+
+@keyframes errorFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-boundary__card {
+  background: var(--color-surface-primary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-10) var(--space-8);
   text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-8);
+  gap: var(--space-6);
+  box-shadow: 
+    0 1px 3px rgba(0, 0, 0, 0.02),
+    0 8px 24px rgba(0, 0, 0, 0.04),
+    0 24px 48px rgba(0, 0, 0, 0.03);
 }
 
 .error-boundary__visual {
@@ -22,87 +61,97 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4);
+  gap: var(--space-3);
 }
 
-.error-boundary__icon {
+.error-boundary__icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 120px;
-  height: 120px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  background: var(--color-surface-secondary);
-  color: var(--color-text-subtle);
   position: relative;
+  animation: iconPulse 2s ease-in-out infinite;
 }
 
-.error-boundary__icon--large {
-  width: 140px;
-  height: 140px;
+@keyframes iconPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
 }
 
-.error-boundary__icon::before {
-  content: '';
-  position: absolute;
-  inset: -2px;
-  border-radius: 50%;
-  padding: 2px;
-  background: linear-gradient(
-    135deg,
-    var(--color-border) 0%,
-    transparent 50%,
-    var(--color-border) 100%
-  );
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0.3;
+.error-boundary__icon-wrapper--404 {
+  background: var(--color-surface-secondary);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+}
+
+.error-boundary__icon-wrapper--error {
+  background: rgba(255, 193, 7, 0.08);
+  color: rgb(255, 160, 0);
+  border: 1px solid rgba(255, 193, 7, 0.2);
 }
 
 .error-boundary__status {
-  font-size: 72px;
+  font-size: 64px;
   font-weight: 200;
-  letter-spacing: -0.02em;
-  color: var(--color-text-subtle);
+  letter-spacing: -0.04em;
+  color: var(--color-text-tertiary);
   line-height: 1;
   font-variant-numeric: tabular-nums;
+  opacity: 0.6;
 }
 
 .error-boundary__content {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  max-width: 480px;
+  gap: var(--space-3);
+  max-width: 440px;
+  width: 100%;
 }
 
 .error-boundary__title {
-  font-size: var(--font-size-2xl);
-  font-weight: 400;
+  font-size: 28px;
+  font-weight: 500;
   letter-spacing: -0.02em;
   color: var(--color-text-primary);
   margin: 0;
   line-height: 1.2;
 }
 
-.error-boundary__message {
+.error-boundary__subtitle {
   font-size: var(--font-size-base);
   color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: 400;
+}
+
+.error-boundary__message {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
   line-height: 1.6;
   margin: 0;
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-secondary);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  font-family: ui-monospace, 'SF Mono', Monaco, monospace;
+  word-break: break-word;
 }
 
 .error-boundary__details {
-  margin-top: var(--space-6);
+  margin-top: var(--space-4);
   text-align: left;
   background: var(--color-surface-secondary);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   overflow: hidden;
+  width: 100%;
 }
 
 .error-boundary__details summary {
@@ -112,11 +161,32 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-secondary);
   font-weight: 500;
-  transition: background-color 0.15s ease;
+  transition: all 0.15s ease;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.error-boundary__details summary::-webkit-details-marker {
+  display: none;
+}
+
+.error-boundary__details summary::before {
+  content: '›';
+  font-size: 18px;
+  transition: transform 0.15s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.error-boundary__details[open] summary::before {
+  transform: rotate(90deg);
 }
 
 .error-boundary__details summary:hover {
   background: var(--color-surface-tertiary);
+  color: var(--color-text-primary);
 }
 
 .error-boundary__details[open] summary {
@@ -127,36 +197,43 @@
 .error-boundary__stack {
   padding: var(--space-4);
   margin: 0;
-  font-size: var(--font-size-xs);
-  font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+  font-size: 11px;
+  font-family: ui-monospace, 'SF Mono', Monaco, 'Cascadia Code', monospace;
   color: var(--color-text-tertiary);
   line-height: 1.6;
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-all;
+  max-height: 240px;
+  overflow-y: auto;
 }
 
 .error-boundary__actions {
   display: flex;
-  gap: var(--space-3);
+  gap: var(--space-2);
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
+  width: 100%;
+  padding-top: var(--space-2);
 }
 
 .error-boundary__button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: var(--space-2);
-  padding: var(--space-3) var(--space-5);
+  padding: 0 var(--space-5);
+  height: 40px;
   border-radius: var(--radius-md);
   font-size: var(--font-size-sm);
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
   border: 1px solid transparent;
   line-height: 1;
+  white-space: nowrap;
 }
 
 .error-boundary__button--primary {
@@ -169,25 +246,27 @@
   background: var(--color-text-secondary);
   border-color: var(--color-text-secondary);
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .error-boundary__button--primary:active {
   transform: translateY(0);
+  box-shadow: none;
 }
 
-.error-boundary__button--secondary {
+.error-boundary__button--ghost {
   background: transparent;
   color: var(--color-text-secondary);
   border-color: var(--color-border);
 }
 
-.error-boundary__button--secondary:hover {
+.error-boundary__button--ghost:hover {
   background: var(--color-surface-secondary);
   color: var(--color-text-primary);
   border-color: var(--color-text-tertiary);
 }
 
-.error-boundary__button--secondary:active {
+.error-boundary__button--ghost:active {
   background: var(--color-surface-tertiary);
 }
 
@@ -201,39 +280,46 @@
     padding: var(--space-4);
   }
 
-  .error-boundary__container {
-    gap: var(--space-6);
+  .error-boundary__card {
+    padding: var(--space-8) var(--space-6);
   }
 
-  .error-boundary__icon {
-    width: 100px;
-    height: 100px;
+  .error-boundary__icon-wrapper {
+    width: 80px;
+    height: 80px;
   }
 
-  .error-boundary__icon--large {
-    width: 120px;
-    height: 120px;
+  .error-boundary__icon-wrapper svg {
+    width: 40px;
+    height: 40px;
   }
 
   .error-boundary__status {
-    font-size: 56px;
+    font-size: 52px;
   }
 
   .error-boundary__title {
-    font-size: var(--font-size-xl);
+    font-size: 24px;
+  }
+
+  .error-boundary__subtitle {
+    font-size: var(--font-size-sm);
   }
 
   .error-boundary__message {
-    font-size: var(--font-size-sm);
+    font-size: 12px;
   }
 
   .error-boundary__actions {
     flex-direction: column;
-    width: 100%;
   }
 
   .error-boundary__button {
     width: 100%;
-    justify-content: center;
+  }
+
+  .error-boundary__stack {
+    font-size: 10px;
+    max-height: 180px;
   }
 }

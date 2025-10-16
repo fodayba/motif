@@ -3,6 +3,7 @@ import type { RouteObject } from 'react-router-dom'
 import { Navigate, Outlet } from 'react-router-dom'
 import { AppLayout } from '../layouts/app-layout'
 import { AuthLayout } from '../layouts/auth-layout'
+import { ErrorBoundary } from '../components/error-boundary'
 import { useAuth } from '../providers/auth-provider'
 import { ModuleGuard } from './module-guard'
 import { APP_NAVIGATION } from './navigation'
@@ -27,43 +28,43 @@ const EquipmentLanding = lazy(() =>
 )
 
 const EquipmentDashboard = lazy(() =>
-  import('@presentation/pages/equipment/equipment-dashboard').then((module) => ({
+  import('@presentation/pages/modules/equipment/equipment-dashboard').then((module) => ({
     default: module.EquipmentDashboard,
   })),
 )
 
 const GPSTrackingMap = lazy(() =>
-  import('@presentation/pages/equipment/gps-tracking-map').then((module) => ({
+  import('@presentation/pages/modules/equipment/gps-tracking-map').then((module) => ({
     default: module.GPSTrackingMap,
   })),
 )
 
 const MaintenanceCalendar = lazy(() =>
-  import('@presentation/pages/equipment/maintenance-calendar').then((module) => ({
+  import('@presentation/pages/modules/equipment/maintenance-calendar').then((module) => ({
     default: module.MaintenanceCalendar,
   })),
 )
 
 const CheckInOutForm = lazy(() =>
-  import('@presentation/pages/equipment/check-in-out-form').then((module) => ({
+  import('@presentation/pages/modules/equipment/check-in-out-form').then((module) => ({
     default: module.CheckInOutForm,
   })),
 )
 
 const IoTSensorDashboard = lazy(() =>
-  import('@presentation/pages/equipment/iot-sensor-dashboard').then((module) => ({
+  import('@presentation/pages/modules/equipment/iot-sensor-dashboard').then((module) => ({
     default: module.IoTSensorDashboard,
   })),
 )
 
 const UtilizationReports = lazy(() =>
-  import('@presentation/pages/equipment/utilization-reports').then((module) => ({
+  import('@presentation/pages/modules/equipment/utilization-reports').then((module) => ({
     default: module.UtilizationReports,
   })),
 )
 
 const ROIDepreciationReports = lazy(() =>
-  import('@presentation/pages/equipment/roi-depreciation-reports').then((module) => ({
+  import('@presentation/pages/modules/equipment/roi-depreciation-reports').then((module) => ({
     default: module.ROIDepreciationReports,
   })),
 )
@@ -71,6 +72,42 @@ const ROIDepreciationReports = lazy(() =>
 const InventoryLanding = lazy(() =>
   import('@presentation/pages/modules/inventory/inventory-landing').then((module) => ({
     default: module.InventoryLanding,
+  })),
+)
+
+const InventoryDashboard = lazy(() =>
+  import('@presentation/pages/modules/inventory/inventory-dashboard').then((module) => ({
+    default: module.default,
+  })),
+)
+
+const BatchTracking = lazy(() =>
+  import('@presentation/pages/modules/inventory/batch-tracking').then((module) => ({
+    default: module.default,
+  })),
+)
+
+const TransferManagement = lazy(() =>
+  import('@presentation/pages/modules/inventory/transfer-management').then((module) => ({
+    default: module.default,
+  })),
+)
+
+const CycleCount = lazy(() =>
+  import('@presentation/pages/modules/inventory/cycle-count').then((module) => ({
+    default: module.default,
+  })),
+)
+
+const RequisitionManagement = lazy(() =>
+  import('@presentation/pages/modules/inventory/requisition-management').then((module) => ({
+    default: module.default,
+  })),
+)
+
+const WarehouseOperations = lazy(() =>
+  import('@presentation/pages/modules/inventory/warehouse-operations').then((module) => ({
+    default: module.default,
   })),
 )
 
@@ -165,6 +202,7 @@ export const routes: RouteObject[] = [
   {
     path: '/auth',
     element: <AuthLayout />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         index: true,
@@ -191,9 +229,11 @@ export const routes: RouteObject[] = [
   {
     path: '/',
     element: <ProtectedRoute />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         element: <AppLayout />,
+        errorElement: <ErrorBoundary />,
         children: [
           {
             index: true,
@@ -322,6 +362,60 @@ export const routes: RouteObject[] = [
                 index: true,
                 element: <InventoryLanding />,
               },
+              {
+                path: 'dashboard',
+                element: <InventoryDashboard />,
+                handle: {
+                  navId: 'inventory-dashboard',
+                  label: 'Inventory Dashboard',
+                  description: 'Overview of stock levels, valuations, and reorder alerts.',
+                },
+              },
+              {
+                path: 'batches',
+                element: <BatchTracking />,
+                handle: {
+                  navId: 'inventory-batches',
+                  label: 'Batch Tracking',
+                  description: 'Batch expiration, FIFO/FEFO compliance, and certificate management.',
+                },
+              },
+              {
+                path: 'transfers',
+                element: <TransferManagement />,
+                handle: {
+                  navId: 'inventory-transfers',
+                  label: 'Transfer Management',
+                  description: 'Inter-site transfers with approval workflows and route optimization.',
+                },
+              },
+              {
+                path: 'cycle-counts',
+                element: <CycleCount />,
+                handle: {
+                  navId: 'inventory-cycle-counts',
+                  label: 'Cycle Counts',
+                  description: 'Mobile count entry with variance analysis and accuracy metrics.',
+                },
+              },
+              {
+                path: 'requisitions',
+                element: <RequisitionManagement />,
+                handle: {
+                  navId: 'inventory-requisitions',
+                  label: 'Requisitions',
+                  description: 'Material requisition approval and fulfillment tracking.',
+                },
+              },
+              {
+                path: 'warehouse',
+                element: <WarehouseOperations />,
+                handle: {
+                  navId: 'inventory-warehouse',
+                  label: 'Warehouse Operations',
+                  description: 'Pick, pack, ship operations with bin locations and performance metrics.',
+                },
+              },
             ],
           },
           {
@@ -426,5 +520,6 @@ export const routes: RouteObject[] = [
   {
     path: '*',
     element: <NotFoundPage />,
+    errorElement: <ErrorBoundary />,
   },
 ]

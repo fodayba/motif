@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   Plus,
   Search,
@@ -15,7 +16,8 @@ import {
   Clock,
   Scan,
   Download,
-  RefreshCw
+  RefreshCw,
+  ArrowLeft
 } from 'lucide-react'
 import './cycle-count.css'
 
@@ -71,6 +73,7 @@ interface AccuracyMetrics {
 }
 
 export default function CycleCount() {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(true)
   const [counts, setCounts] = useState<CycleCount[]>([])
   const [filteredCounts, setFilteredCounts] = useState<CycleCount[]>([])
@@ -285,8 +288,15 @@ export default function CycleCount() {
       {/* Header */}
       <div className="cycle-count__header">
         <div className="header-left">
+          <button
+            className="cycle-count__button cycle-count__button--back"
+            onClick={() => navigate('/inventory')}
+            title="Back to Inventory"
+          >
+            <ArrowLeft size={20} />
+          </button>
           <h1 className="page-title">Cycle Count</h1>
-          <p className="page-subtitle">Physical inventory counting and variance analysis</p>
+          <p className="page-subtitle">Physical inventory counting and accuracy tracking</p>
         </div>
         <button className="btn btn--primary">
           <Plus size={20} />

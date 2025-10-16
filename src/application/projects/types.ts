@@ -9,6 +9,7 @@ export type ResourceAssignment = {
   resourceId: string
   taskId: string
   allocationPercent: number
+  units: number
   start: Date
   finish: Date
 }
@@ -28,11 +29,36 @@ export type ProjectTaskRecord = {
   baselineLaborHours: number
   actualLaborHours?: number
   resourceAssignments: ResourceAssignment[]
+  // CPM properties
+  duration: any // Duration value object
+  predecessorIds?: string[]
+  successorIds?: string[]
+  isCritical?: boolean
+  // Schedule compression properties
+  crashData?: {
+    crashedDuration: any // Duration value object
+    crashedCost: number
+  }
+  fastTrackData?: {
+    originalLag: any // Duration value object
+    proposedLag: any // Duration value object
+    riskLevel: string
+    riskDescription: string
+    reworkProbability: number
+  }
 }
 
 export type ResourceCapacity = {
   resourceId: string
   maxAllocationPercent: number
+}
+
+export type ResourceRecord = {
+  id: string
+  name: string
+  type: string
+  maxUnits: number
+  costPerHour: number
 }
 
 export type EarnedValueMetrics = {

@@ -1,19 +1,21 @@
 import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { 
   Package, 
-  AlertTriangle, 
+  TrendingUp, 
   TrendingDown, 
+  AlertTriangle, 
   Bell, 
-  DollarSign,
+  DollarSign, 
   BarChart3,
-  Plus,
   ChevronRight,
   Filter,
-  TrendingUp,
   Repeat,
   ClipboardList,
   ListChecks,
-  Scale
+  Scale,
+  ArrowLeft,
+  Download
 } from 'lucide-react'
 import './inventory-dashboard.css'
 
@@ -218,6 +220,7 @@ export default function InventoryDashboard() {
   }
 
   const percentages = calculateABCPercentages()
+  const navigate = useNavigate()
 
   if (loading) {
     return (
@@ -231,6 +234,13 @@ export default function InventoryDashboard() {
     <div className="inventory-dashboard">
       <div className="inventory-dashboard__header">
         <div className="inventory-dashboard__header-left">
+          <button 
+            className="inventory-dashboard__button inventory-dashboard__button--back"
+            onClick={() => navigate('/inventory')}
+            title="Back to Inventory"
+          >
+            <ArrowLeft size={20} />
+          </button>
           <div>
             <div className="inventory-dashboard__label">INVENTORY MANAGEMENT</div>
             <h1 className="inventory-dashboard__title">Inventory Dashboard</h1>
@@ -251,8 +261,8 @@ export default function InventoryDashboard() {
             </select>
           </div>
           <button className="inventory-dashboard__button inventory-dashboard__button--primary">
-            <Plus size={18} />
-            Quick Actions
+            <Download size={18} />
+            <span>Export Report</span>
           </button>
         </div>
       </div>
@@ -359,6 +369,37 @@ export default function InventoryDashboard() {
         </div>
       </div>
 
+      {/* Quick Actions */}
+      <div className="inventory-dashboard__quick-actions">
+        <h3 className="inventory-dashboard__section-title">Quick Actions</h3>
+        <div className="inventory-dashboard__quick-actions-grid">
+          <button className="quick-action-card" onClick={() => navigate('/inventory/transfers')}>
+            <div className="quick-action-card__icon">
+              <Repeat size={24} />
+            </div>
+            <div className="quick-action-card__label">New Transfer</div>
+          </button>
+          <button className="quick-action-card" onClick={() => navigate('/inventory/requisitions')}>
+            <div className="quick-action-card__icon">
+              <ClipboardList size={24} />
+            </div>
+            <div className="quick-action-card__label">Create Requisition</div>
+          </button>
+          <button className="quick-action-card" onClick={() => navigate('/inventory/cycle-counts')}>
+            <div className="quick-action-card__icon">
+              <ListChecks size={24} />
+            </div>
+            <div className="quick-action-card__label">Cycle Count</div>
+          </button>
+          <button className="quick-action-card" onClick={() => navigate('/inventory/warehouse')}>
+            <div className="quick-action-card__icon">
+              <Scale size={24} />
+            </div>
+            <div className="quick-action-card__label">Warehouse Ops</div>
+          </button>
+        </div>
+      </div>
+
       <div className="inventory-dashboard__content">
         {/* Reorder Alerts */}
         <div className="inventory-dashboard__section">
@@ -438,37 +479,6 @@ export default function InventoryDashboard() {
               </div>
             ))}
           </div>
-        </div>
-      </div>
-
-      {/* Quick Actions */}
-      <div className="inventory-dashboard__quick-actions">
-        <h3 className="inventory-dashboard__quick-actions-title">Quick Actions</h3>
-        <div className="inventory-dashboard__quick-actions-grid">
-          <button className="quick-action-card">
-            <div className="quick-action-card__icon">
-              <Repeat size={24} />
-            </div>
-            <div className="quick-action-card__label">New Transfer</div>
-          </button>
-          <button className="quick-action-card">
-            <div className="quick-action-card__icon">
-              <ClipboardList size={24} />
-            </div>
-            <div className="quick-action-card__label">Create Requisition</div>
-          </button>
-          <button className="quick-action-card">
-            <div className="quick-action-card__icon">
-              <ListChecks size={24} />
-            </div>
-            <div className="quick-action-card__label">Cycle Count</div>
-          </button>
-          <button className="quick-action-card">
-            <div className="quick-action-card__icon">
-              <Scale size={24} />
-            </div>
-            <div className="quick-action-card__label">Stock Adjustment</div>
-          </button>
         </div>
       </div>
     </div>
