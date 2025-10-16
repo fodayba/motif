@@ -1,0 +1,64 @@
+.radial-gauge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  color: var(--color-primary, #1d4ed8);
+}
+
+.radial-gauge__svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.radial-gauge__track {
+  fill: none;
+  stroke: var(--color-border-subtle);
+  opacity: 0.6;
+}
+
+.radial-gauge__progress {
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.radial-gauge__content {
+  position: absolute;
+  display: grid;
+  gap: var(--space-1);
+  text-align: center;
+}
+
+.radial-gauge__value {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: inherit;
+}
+
+.radial-gauge__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-subtle);
+}
+
+.radial-gauge__caption {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-subtle);
+}
+
+.radial-gauge--success {
+  color: var(--color-success, #16a34a);
+}
+
+.radial-gauge--warning {
+  color: var(--color-warning, #f59e0b);
+}
+
+.radial-gauge--danger {
+  color: var(--color-danger, #dc2626);
+}
+
+.radial-gauge--info {
+  color: var(--color-info, #2563eb);
+}

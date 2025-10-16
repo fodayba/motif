@@ -1,14 +1,22 @@
 .ui-surface {
-  background-color: var(--color-surface);
-  color: var(--color-text);
-  border-radius: 0.75rem;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--color-border-subtle);
-  box-shadow: var(--shadow-soft);
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.ui-surface:hover {
+  border-color: var(--color-border);
+}
+
+.ui-surface--default {
+  background-color: var(--color-surface);
 }
 
 .ui-surface--muted {
   background-color: var(--color-surface-muted);
+  border-color: transparent;
 }
 
 .ui-surface--padding-none {
@@ -16,13 +24,13 @@
 }
 
 .ui-surface--padding-sm {
-  padding: 0.75rem;
+  padding: var(--space-4);
 }
 
 .ui-surface--padding-md {
-  padding: 1.25rem;
+  padding: var(--space-6);
 }
 
 .ui-surface--padding-lg {
-  padding: 2rem;
+  padding: var(--space-8);
 }

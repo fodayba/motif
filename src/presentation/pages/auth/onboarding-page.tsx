@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '@app/providers/auth-provider'
+import { AlertCircle, Building2, User, Layers } from 'lucide-react'
 import './auth-pages.css'
 
 export const OnboardingPage = () => {
@@ -60,11 +61,7 @@ export const OnboardingPage = () => {
       </header>
       {error ? (
         <div className="error-banner" role="alert">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
+          <AlertCircle size={20} strokeWidth={2} aria-hidden="true" />
           <span>{error}</span>
         </div>
       ) : null}
@@ -77,11 +74,7 @@ export const OnboardingPage = () => {
             className={`input-container${focusedField.organizationName ? ' focused' : ''}`}
           >
             <span className="input-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 21h18" />
-                <path d="M9 8h6" />
-                <path d="M8 21V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v16" />
-              </svg>
+              <Building2 size={18} strokeWidth={2} />
             </span>
             <input
               id="onboarding-organization"
@@ -108,10 +101,7 @@ export const OnboardingPage = () => {
             </label>
             <div className={`input-container${focusedField.role ? ' focused' : ''}`}>
               <span className="input-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
+                <User size={18} strokeWidth={2} />
               </span>
               <input
                 id="onboarding-role"
@@ -137,11 +127,7 @@ export const OnboardingPage = () => {
             </label>
             <div className={`input-container${focusedField.projectFocus ? ' focused' : ''}`}>
               <span className="input-icon" aria-hidden="true">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="12 2 2 7 12 12 22 7 12 2" />
-                  <polyline points="2 17 12 22 22 17" />
-                  <polyline points="2 12 12 17 22 12" />
-                </svg>
+                <Layers size={18} strokeWidth={2} />
               </span>
               <input
                 id="onboarding-focus"

@@ -2,25 +2,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.2rem;
-  border-radius: 0.5rem;
+  gap: var(--control-gap);
+  padding: var(--control-padding-y) var(--control-padding-x);
+  border-radius: var(--control-radius);
   border: 1px solid transparent;
   font: inherit;
-  font-weight: 600;
+  font-weight: 500;
+  font-size: var(--font-size-sm);
+  line-height: 1;
   cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease,
-    transform 0.2s ease;
+  transition: all 0.15s ease;
+  min-height: var(--control-height);
+  letter-spacing: -0.01em;
 }
 
 .ui-button:focus-visible {
-  outline: 3px solid var(--color-focus);
+  outline: 2px solid var(--color-focus);
   outline-offset: 2px;
 }
 
 .ui-button:disabled {
-  opacity: 0.55;
+  opacity: 0.4;
   cursor: not-allowed;
+}
+
+.ui-button:active:not(:disabled) {
+  transform: scale(0.98);
 }
 
 .ui-button--block {
@@ -30,28 +37,32 @@
 .ui-button--primary {
   background-color: var(--color-primary);
   color: var(--color-primary-foreground);
+  box-shadow: var(--shadow-sm);
 }
 
 .ui-button--primary:hover:not(:disabled) {
   background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-md);
 }
 
 .ui-button--secondary {
-  background-color: var(--color-secondary);
-  color: var(--color-secondary-foreground);
+  background-color: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
 }
 
 .ui-button--secondary:hover:not(:disabled) {
-  background-color: var(--color-secondary-hover);
+  background-color: var(--color-surface-muted);
+  border-color: var(--color-border-strong);
 }
 
 .ui-button--ghost {
   background-color: transparent;
-  color: var(--color-text);
-  border-color: var(--color-border-subtle);
+  color: var(--color-text-subtle);
+  border-color: transparent;
 }
 
 .ui-button--ghost:hover:not(:disabled) {
   background-color: var(--color-surface-muted);
-  border-color: var(--color-border-strong);
+  color: var(--color-text);
 }

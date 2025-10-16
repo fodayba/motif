@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@app/providers/auth-provider'
+import { AlertCircle, Mail, Lock, Eye, EyeOff } from 'lucide-react'
 import './auth-pages.css'
 
 export const LoginPage = () => {
@@ -40,11 +41,7 @@ export const LoginPage = () => {
       </header>
       {error ? (
         <div className="error-banner" role="alert">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
+          <AlertCircle size={20} strokeWidth={2} aria-hidden="true" />
           <span>{error}</span>
         </div>
       ) : null}
@@ -57,10 +54,7 @@ export const LoginPage = () => {
             className={`input-container${focusedField.email ? ' focused' : ''}${error ? ' error' : ''}`}
           >
             <span className="input-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="4" width="20" height="16" rx="2" ry="2" />
-                <polyline points="22,6 12,13 2,6" />
-              </svg>
+              <Mail size={18} strokeWidth={2} />
             </span>
             <input
               id="login-email"
@@ -87,10 +81,7 @@ export const LoginPage = () => {
             className={`input-container${focusedField.password ? ' focused' : ''}${error ? ' error' : ''}`}
           >
             <span className="input-icon" aria-hidden="true">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-              </svg>
+              <Lock size={18} strokeWidth={2} />
             </span>
             <input
               id="login-password"
@@ -112,21 +103,11 @@ export const LoginPage = () => {
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={showPassword ? 'Hide password' : 'Show password'}
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                {showPassword ? (
-                  <>
-                    <path d="M1 1l22 22" />
-                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-5.52 0-10-4-11-8 0-.72.11-1.4.31-2" />
-                    <path d="M9.53 9.53a3 3 0 0 0 4.95 3.11" />
-                    <path d="M9.88 4.12A10.05 10.05 0 0 1 12 4c5.52 0 10 4 11 8-.27 1.35-.8 2.6-1.53 3.68" />
-                  </>
-                ) : (
-                  <>
-                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                    <circle cx="12" cy="12" r="3" />
-                  </>
-                )}
-              </svg>
+              {showPassword ? (
+                <EyeOff size={18} strokeWidth={2} aria-hidden="true" />
+              ) : (
+                <Eye size={18} strokeWidth={2} aria-hidden="true" />
+              )}
             </button>
           </div>
           <div className="form-options">

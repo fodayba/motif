@@ -1,55 +1,62 @@
 .dashboard-landing {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: var(--space-8);
 }
 
 .dashboard-landing__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: var(--space-6);
+  flex-wrap: wrap;
 }
 
 .dashboard-landing__label {
   margin: 0;
-  color: var(--color-text-subtle);
+  color: var(--color-text-muted);
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
+  font-size: var(--font-size-xs);
 }
 
 .dashboard-landing__title {
-  margin: 0.25rem 0 0;
-  font-size: 2rem;
+  margin: var(--space-2) 0 0;
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 
 .dashboard-landing__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-6);
 }
 
 .dashboard-landing__card {
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
+  gap: var(--space-5);
 }
 
 .dashboard-landing__card-title {
   margin: 0;
-  font-size: 1.1rem;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
 }
 
 .dashboard-landing__form {
   display: grid;
-  gap: 1rem;
+  gap: var(--space-4);
 }
 
 .dashboard-landing__list {
   margin: 0;
-  padding-left: 1.2rem;
+  padding-left: var(--space-5);
   color: var(--color-text-subtle);
   display: grid;
-  gap: 0.5rem;
+  gap: var(--space-3);
+  line-height: 1.6;
 }

@@ -40,22 +40,22 @@ This backlog tracks the React (Vite) migration in phases aligned with the Constr
 
 ## Phase 5 – Presentation Layer
 - [x] Rebuild authentication flows (login, register, MFA, onboarding)
-- [ ] Implement access-guarded routing and layout scaffolding
-- [ ] Port equipment module UI (tracking, maintenance, analytics)
-- [ ] Port inventory module UI (list, transfers, optimization)
-- [ ] Port procurement module UI (vendors, requisitions, POs, portal)
-- [ ] Port project module UI (wizard, resources, dashboards, EVM)
-- [ ] Port financial module UI (costing, budgets, billing)
-- [ ] Build quality/safety/compliance UI
-- [ ] Implement analytics dashboards and reports
-- [ ] Build document management and collaboration UI
+- [x] Implement access-guarded routing and layout scaffolding
+- [x] Port equipment module UI (tracking, maintenance, analytics)
+- [x] Port inventory module UI (list, transfers, optimization)
+- [x] Port procurement module UI (vendors, requisitions, POs, portal)
+- [x] Port project module UI (wizard, resources, dashboards, EVM)
+- [x] Port financial module UI (costing, budgets, billing)
+- [x] Build quality/safety/compliance UI
+- [x] Implement analytics dashboards and reports
+- [x] Build document management and collaboration UI
 
 ## Phase 6 – Cross-Cutting & Mobile Support
-- [ ] Implement offline caching and synchronization strategy
-- [ ] Add notification center, toasts, modals
-- [ ] Integrate theming (light/dark, compact mode)
-- [ ] Create reusable data visualization components
-- [ ] Prepare mobile-friendly layouts and interactions
+- [x] Implement offline caching and synchronization strategy
+- [x] Add notification center, toasts, modals
+- [x] Integrate theming (light/dark, compact mode)
+- [x] Create reusable data visualization components
+- [x] Prepare mobile-friendly layouts and interactions
 
 ## Phase 7 – Testing & DevOps
 - [ ] Establish unit test baselines for domain/application services

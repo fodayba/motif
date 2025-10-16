@@ -1,0 +1,106 @@
+.data-table-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.data-table__title {
+  padding: var(--space-6) var(--space-6) 0;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.data-table__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-base);
+}
+
+.data-table__head {
+  background-color: var(--color-surface-muted);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.data-table__header {
+  padding: var(--space-4) var(--space-6);
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.05em;
+}
+
+.data-table__sort-button {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: inherit;
+  width: 100%;
+}
+
+.data-table__sort-button:hover {
+  color: var(--color-text);
+}
+
+.data-table__sort-indicator {
+  font-size: 1.1em;
+  color: var(--color-primary);
+}
+
+.data-table__body {
+  background-color: var(--color-surface);
+}
+
+.data-table__row {
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: background-color 0.15s ease;
+}
+
+.data-table__row:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.data-table__row:last-child {
+  border-bottom: none;
+}
+
+.data-table__cell {
+  padding: var(--space-4) var(--space-6);
+  color: var(--color-text);
+}
+
+.data-table__empty {
+  padding: var(--space-8);
+  text-align: center;
+  color: var(--color-text-subtle);
+}
+
+@media (max-width: 768px) {
+  .data-table__header,
+  .data-table__cell {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--font-size-sm);
+  }
+
+  .data-table__title {
+    padding: var(--space-4) var(--space-4) 0;
+  }
+}

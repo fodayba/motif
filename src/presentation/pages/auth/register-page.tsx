@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '@app/providers/auth-provider'
+import { AlertCircle, Mail, Lock, User, Eye, EyeOff } from 'lucide-react'
 import './auth-pages.css'
 
 export const RegisterPage = () => {
@@ -75,11 +76,7 @@ export const RegisterPage = () => {
       </header>
       {error ? (
         <div className="error-banner" role="alert">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" y1="8" x2="12" y2="12" />
-            <line x1="12" y1="16" x2="12.01" y2="16" />
-          </svg>
+          <AlertCircle size={20} strokeWidth={2} aria-hidden="true" />
           <span>{error}</span>
         </div>
       ) : null}

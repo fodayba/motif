@@ -136,13 +136,11 @@ export const AuthLayout = () => {
         </aside>
 
         <section className="form-column">
-          <div className="form-content">
-            <Outlet />
-            <footer className="form-footer">
-              <span>© {currentYear} Motif ERP</span>
-              <a href="mailto:support@motif-erp.io">support@motif-erp.io</a>
-            </footer>
-          </div>
+          <Outlet />
+          <footer className="form-footer">
+            <span>© {currentYear} Motif ERP</span>
+            <a href="mailto:support@motif-erp.io">support@motif-erp.io</a>
+          </footer>
         </section>
       </div>
     </div>

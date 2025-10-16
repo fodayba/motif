@@ -1,0 +1,746 @@
+/* ============================================================================
+   ROI & Depreciation Reports Styles
+   Swiss spa aesthetic with financial data focus
+   ============================================================================ */
+
+.roi-depreciation-reports {
+  padding: var(--space-6);
+  max-width: 1600px;
+  margin: 0 auto;
+  background: var(--color-background);
+  min-height: 100vh;
+}
+
+/* ============================================================================
+   Header
+   ============================================================================ */
+
+.reports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-6);
+  gap: var(--space-4);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.header-left h1 {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.btn-export {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-primary-foreground);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-export:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-export .icon {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+  padding: var(--space-2);
+  min-width: unset;
+  border: none;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  background: var(--color-surface-elevated);
+  transform: translateY(-1px);
+}
+
+/* ============================================================================
+   View Selector
+   ============================================================================ */
+
+.view-selector {
+  display: flex;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding: var(--space-2);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.view-button {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-button:hover {
+  background: var(--color-gray-50);
+  color: var(--color-text);
+}
+
+.view-button.active {
+  background: var(--color-primary);
+  color: var(--color-primary-foreground);
+}
+
+.view-button .icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* ============================================================================
+   Statistics Cards
+   ============================================================================ */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.stat-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+.stat-icon-wrapper .icon {
+  width: 24px;
+  height: 24px;
+  color: var(--color-primary-foreground);
+}
+
+.stat-primary {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.stat-success {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.stat-info {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+}
+
+.stat-warning {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.stat-content {
+  flex: 1;
+}
+
+.stat-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.stat-value {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.stat-trend {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-top: var(--space-1);
+}
+
+.icon-trend {
+  width: 16px;
+  height: 16px;
+}
+
+.icon-trend.up {
+  color: var(--color-success);
+}
+
+.icon-trend.down {
+  color: var(--color-danger);
+}
+
+/* ============================================================================
+   View Content
+   ============================================================================ */
+
+.view-content {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================================================
+   Reports Table
+   ============================================================================ */
+
+.reports-table-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: var(--space-6);
+}
+
+.reports-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reports-table thead {
+  background: var(--color-gray-50);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.reports-table th {
+  padding: var(--space-4) var(--space-5);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.reports-table tbody tr {
+  border-bottom: 1px solid var(--color-border);
+  transition: background 0.2s ease;
+}
+
+.reports-table tbody tr:hover {
+  background: var(--color-gray-50);
+}
+
+.reports-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.reports-table td {
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.equipment-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.equipment-name {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.asset-number {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+.method-badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  background: var(--color-gray-100);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+.highlight {
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.positive {
+  font-weight: 600;
+  color: var(--color-success);
+}
+
+.negative {
+  font-weight: 600;
+  color: var(--color-danger);
+}
+
+.roi-badge {
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+}
+
+.roi-badge.badge-success {
+  background: var(--color-success-soft);
+  color: var(--color-success-text);
+}
+
+.roi-badge.badge-info {
+  background: var(--color-info-soft);
+  color: var(--color-info-text);
+}
+
+.roi-badge.badge-warning {
+  background: var(--color-warning-soft);
+  color: var(--color-warning-text);
+}
+
+.roi-badge.badge-danger {
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+}
+
+.payback-cell {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.payback-cell .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-secondary);
+}
+
+/* ============================================================================
+   Depreciation Chart
+   ============================================================================ */
+
+.chart-card {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-card h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-5) 0;
+}
+
+.depreciation-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  margin-bottom: var(--space-5);
+}
+
+.chart-row {
+  display: flex;
+  gap: var(--space-4);
+  align-items: center;
+}
+
+.chart-label {
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.chart-label .equipment-name {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.chart-label .book-value {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+.chart-bar-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.chart-bar-wrapper {
+  display: flex;
+  height: 32px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.chart-bar {
+  height: 100%;
+  transition: width 0.5s ease;
+}
+
+.bar-depreciated {
+  background: linear-gradient(90deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.bar-remaining {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.chart-markers {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 var(--space-1);
+}
+
+.marker {
+  width: 2px;
+  height: 12px;
+  background: var(--color-gray-300);
+  border-radius: var(--radius-full);
+}
+
+.marker.current {
+  background: var(--color-primary);
+  height: 16px;
+}
+
+.chart-legend {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.legend-color {
+  width: 24px;
+  height: 12px;
+  border-radius: var(--radius-sm);
+}
+
+/* ============================================================================
+   Disposal Recommendations
+   ============================================================================ */
+
+.disposal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  gap: var(--space-6);
+}
+
+.disposal-card {
+  padding: var(--space-6);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s ease;
+}
+
+.disposal-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.disposal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.equipment-info h3 {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.equipment-info .asset-number {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-family: 'Courier New', monospace;
+}
+
+.action-badge {
+  display: inline-block;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.action-badge.badge-success {
+  background: var(--color-success-soft);
+  color: var(--color-success-text);
+}
+
+.action-badge.badge-info {
+  background: var(--color-info-soft);
+  color: var(--color-info-text);
+}
+
+.action-badge.badge-warning {
+  background: var(--color-warning-soft);
+  color: var(--color-warning-text);
+}
+
+.action-badge.badge-secondary {
+  background: var(--color-gray-100);
+  color: var(--color-text);
+}
+
+.action-badge.badge-primary {
+  background: var(--color-info-soft);
+  color: var(--color-info-text);
+}
+
+.disposal-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.disposal-detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.disposal-detail .label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.disposal-detail .value {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.icon-inline {
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-secondary);
+}
+
+.market-badge {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.market-badge.market-strong {
+  background: var(--color-success-soft);
+  color: var(--color-success-text);
+}
+
+.market-badge.market-moderate {
+  background: var(--color-warning-soft);
+  color: var(--color-warning-text);
+}
+
+.market-badge.market-weak {
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+}
+
+.reasoning {
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.reasoning .label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.reasoning .text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ============================================================================
+   Responsive Design
+   ============================================================================ */
+
+@media (max-width: 1200px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .reports-table-container {
+    overflow-x: auto;
+  }
+
+  .reports-table {
+    min-width: 900px;
+  }
+
+  .chart-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .chart-label {
+    flex: 1;
+  }
+
+  .disposal-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .roi-depreciation-reports {
+    padding: var(--space-4);
+  }
+
+  .reports-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-export {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .view-selector {
+    flex-direction: column;
+  }
+
+  .view-button {
+    justify-content: center;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .stat-card {
+    flex-direction: row;
+  }
+
+  .reports-table th,
+  .reports-table td {
+    padding: var(--space-3);
+  }
+
+  .disposal-header {
+    flex-direction: column;
+  }
+
+  .disposal-detail {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

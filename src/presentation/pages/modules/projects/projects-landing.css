@@ -1,0 +1,231 @@
+.projects-landing {
+  gap: 2.5rem;
+}
+
+.projects-landing__metrics {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.projects-landing__metric {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.projects-landing__metric-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-subtle);
+}
+
+.projects-landing__metric-value {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.projects-landing__metric-detail {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.metric-detail--positive {
+  color: var(--color-success-text);
+}
+
+.metric-detail--warning {
+  color: var(--color-warning-text);
+}
+
+.metric-detail--negative {
+  color: var(--color-danger-text);
+}
+
+.projects-landing__metric-note {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.projects-landing__grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.projects-landing__grid--wide {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.projects-landing__panel {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.projects-landing__panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.projects-landing__panel-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.projects-landing__list {
+  display: grid;
+  gap: 1rem;
+}
+
+.projects-landing__list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.projects-landing__list-content {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.projects-landing__list-title {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.projects-landing__list-subtitle {
+  margin: 0;
+  color: var(--color-text-subtle);
+}
+
+.projects-landing__list-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-text-subtle);
+}
+
+.projects-landing__tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.projects-landing__tag--warning {
+  background-color: rgba(234, 179, 8, 0.18);
+  color: #92400e;
+}
+
+.projects-landing__tag--risk {
+  background-color: rgba(220, 38, 38, 0.15);
+  color: #b91c1c;
+}
+
+.projects-landing__tag--healthy {
+  background-color: rgba(34, 197, 94, 0.18);
+  color: #15803d;
+}
+
+.projects-landing__tag--escalated {
+  background-color: rgba(220, 38, 38, 0.15);
+  color: #b91c1c;
+}
+
+.projects-landing__tag--mitigation {
+  background-color: rgba(59, 130, 246, 0.18);
+  color: #1d4ed8;
+}
+
+.projects-landing__tag--monitor {
+  background-color: rgba(148, 163, 184, 0.25);
+  color: #1f2937;
+}
+
+.projects-landing__tag--scheduled {
+  background-color: var(--color-surface-muted);
+  color: var(--color-text-subtle);
+}
+
+.projects-landing__tag--completed {
+  background-color: rgba(16, 185, 129, 0.18);
+  color: #047857;
+}
+
+.projects-landing__tag--upcoming {
+  background-color: rgba(59, 130, 246, 0.18);
+  color: #1d4ed8;
+}
+
+.projects-landing__resource {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.projects-landing__resource-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.projects-landing__resource-value {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.projects-landing__progress {
+  height: 6px;
+  background-color: var(--color-border-subtle);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.projects-landing__progress-value {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-primary-hover));
+}
+
+.projects-landing__resource-note {
+  margin: 0;
+  color: var(--color-text-subtle);
+}
+
+.projects-landing__summary {
+  margin: 0;
+  color: var(--color-text-subtle);
+  line-height: 1.6;
+}
+
+.projects-landing__summary strong {
+  color: var(--color-text);
+}
+
+.projects-landing__bullets {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.75rem;
+  color: var(--color-text-subtle);
+}
+
+@media (max-width: 720px) {
+  .projects-landing__list-item {
+    flex-direction: column;
+  }
+}
