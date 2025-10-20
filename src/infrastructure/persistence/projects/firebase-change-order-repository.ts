@@ -113,6 +113,20 @@ export class FirebaseChangeOrderRepository
     return this.list(constraints)
   }
 
+  async update(changeOrder: ChangeOrder): Promise<void>
+  async update(entity: { id: UniqueEntityID; data: Partial<ChangeOrder> }): Promise<void>
+  async update(input: ChangeOrder | { id: UniqueEntityID; data: Partial<ChangeOrder> }): Promise<void> {
+    if ('data' in input) {
+      await super.update(input)
+    } else {
+      const id = this.obtainId(input)
+      if (!id) {
+        throw new Error('ChangeOrder does not have an id')
+      }
+      await super.update({ id, data: input })
+    }
+  }
+
   async getNextChangeOrderNumber(projectId: UniqueEntityID): Promise<string> {
     const projectIdStr = projectId.toString()
     const constraints: FirestoreQueryConstraint[] = [

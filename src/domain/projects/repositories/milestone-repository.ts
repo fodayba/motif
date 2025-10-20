@@ -6,6 +6,7 @@ export interface MilestoneRepository {
   // Basic CRUD operations
   findById(milestoneId: UniqueEntityID): Promise<Milestone | null>
   save(milestone: Milestone): Promise<void>
+  update(milestone: Milestone): Promise<void>
   delete(milestoneId: UniqueEntityID): Promise<void>
 
   // Query methods

@@ -52,6 +52,20 @@ export class FirebaseTaskDependencyRepository
     return this.list(constraints)
   }
 
+  async update(dependency: TaskDependency): Promise<void>
+  async update(entity: { id: UniqueEntityID; data: Partial<TaskDependency> }): Promise<void>
+  async update(input: TaskDependency | { id: UniqueEntityID; data: Partial<TaskDependency> }): Promise<void> {
+    if ('data' in input) {
+      await super.update(input)
+    } else {
+      const id = this.obtainId(input)
+      if (!id) {
+        throw new Error('TaskDependency does not have an id')
+      }
+      await super.update({ id, data: input })
+    }
+  }
+
   protected obtainId(entity: TaskDependency): UniqueEntityID | null {
     return entity.id
   }

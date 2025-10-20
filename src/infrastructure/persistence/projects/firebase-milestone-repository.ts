@@ -100,6 +100,20 @@ export class FirebaseMilestoneRepository
     return this.list(constraints)
   }
 
+  async update(milestone: Milestone): Promise<void>
+  async update(entity: { id: UniqueEntityID; data: Partial<Milestone> }): Promise<void>
+  async update(input: Milestone | { id: UniqueEntityID; data: Partial<Milestone> }): Promise<void> {
+    if ('data' in input) {
+      await super.update(input)
+    } else {
+      const id = this.obtainId(input)
+      if (!id) {
+        throw new Error('Milestone does not have an id')
+      }
+      await super.update({ id, data: input })
+    }
+  }
+
   protected obtainId(entity: Milestone): UniqueEntityID | null {
     return entity.id
   }

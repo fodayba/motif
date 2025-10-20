@@ -1,0 +1,8 @@
+export { default as ProcurementDashboard } from './procurement-dashboard'
+export { VendorManagement } from './vendor-management'
+export { RFQManagement } from './rfq-management'
+export { ThreeWayMatchReview } from './three-way-match'
+export { PurchaseOrderManagement } from './purchase-order-management'
+export { SupplierPortal } from './supplier-portal'
+export { VendorPerformance } from './vendor-performance'
+export { ProcurementLanding } from './procurement-landing'

@@ -7,6 +7,7 @@ export interface ChangeOrderRepository {
   findById(changeOrderId: UniqueEntityID): Promise<ChangeOrder | null>
   findByNumber(changeOrderNumber: string): Promise<ChangeOrder | null>
   save(changeOrder: ChangeOrder): Promise<void>
+  update(changeOrder: ChangeOrder): Promise<void>
   delete(changeOrderId: UniqueEntityID): Promise<void>
 
   // Query methods

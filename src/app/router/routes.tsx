@@ -16,8 +16,26 @@ const DashboardLanding = lazy(() =>
 )
 
 const ProjectsLanding = lazy(() =>
-  import('@presentation/pages/modules/projects/projects-landing').then((module) => ({
-    default: module.ProjectsLanding,
+  import('@presentation/pages/modules/projects/project-landing').then((module) => ({
+    default: module.ProjectLanding,
+  })),
+)
+
+const ProjectDashboard = lazy(() =>
+  import('@presentation/pages/modules/projects').then((module) => ({
+    default: module.ProjectDashboardPage,
+  })),
+)
+
+const GanttChart = lazy(() =>
+  import('@presentation/pages/modules/projects').then((module) => ({
+    default: module.GanttChartPage,
+  })),
+)
+
+const ChangeOrderManagement = lazy(() =>
+  import('@presentation/pages/modules/projects').then((module) => ({
+    default: module.ChangeOrderManagementPage,
   })),
 )
 
@@ -114,6 +132,42 @@ const WarehouseOperations = lazy(() =>
 const ProcurementLanding = lazy(() =>
   import('@presentation/pages/modules/procurement/procurement-landing').then((module) => ({
     default: module.ProcurementLanding,
+  })),
+)
+
+const ProcurementDashboard = lazy(() =>
+  import('@presentation/pages/modules/procurement/procurement-dashboard').then((module) => ({
+    default: module.default,
+  })),
+)
+
+const VendorManagement = lazy(() =>
+  import('@presentation/pages/modules/procurement').then((module) => ({
+    default: module.VendorManagement,
+  })),
+)
+
+const RFQManagement = lazy(() =>
+  import('@presentation/pages/modules/procurement').then((module) => ({
+    default: module.RFQManagement,
+  })),
+)
+
+const ThreeWayMatchReview = lazy(() =>
+  import('@presentation/pages/modules/procurement').then((module) => ({
+    default: module.ThreeWayMatchReview,
+  })),
+)
+
+const PurchaseOrderManagement = lazy(() =>
+  import('@presentation/pages/modules/procurement').then((module) => ({
+    default: module.PurchaseOrderManagement,
+  })),
+)
+
+const SupplierPortal = lazy(() =>
+  import('@presentation/pages/modules/procurement').then((module) => ({
+    default: module.SupplierPortal,
   })),
 )
 
@@ -260,6 +314,33 @@ export const routes: RouteObject[] = [
               {
                 index: true,
                 element: <ProjectsLanding />,
+              },
+              {
+                path: 'dashboard',
+                element: <ProjectDashboard />,
+                handle: {
+                  navId: 'project-dashboard',
+                  label: 'Project Dashboard',
+                  description: 'EVM metrics with SPI, CPI, variance analysis, and forecasts.',
+                },
+              },
+              {
+                path: 'gantt',
+                element: <GanttChart />,
+                handle: {
+                  navId: 'project-gantt',
+                  label: 'Gantt Chart',
+                  description: 'Interactive timeline with dependencies and critical path.',
+                },
+              },
+              {
+                path: 'change-orders',
+                element: <ChangeOrderManagement />,
+                handle: {
+                  navId: 'project-changes',
+                  label: 'Change Orders',
+                  description: 'Track change requests with cost and schedule impact analysis.',
+                },
               },
             ],
           },
@@ -433,7 +514,61 @@ export const routes: RouteObject[] = [
             children: [
               {
                 index: true,
-                element: <ProcurementLanding />,
+                element: <Navigate to="dashboard" replace />,
+              },
+              {
+                path: 'dashboard',
+                element: <ProcurementDashboard />,
+                handle: {
+                  navId: 'procurement-dashboard',
+                  label: 'Dashboard',
+                  description: 'Procurement overview with KPIs and recent activity.',
+                },
+              },
+              {
+                path: 'vendors',
+                element: <VendorManagement />,
+                handle: {
+                  navId: 'procurement-vendors',
+                  label: 'Vendor Management',
+                  description: 'Manage subcontractors, verify compliance, and track performance.',
+                },
+              },
+              {
+                path: 'rfq',
+                element: <RFQManagement />,
+                handle: {
+                  navId: 'procurement-rfq',
+                  label: 'RFQ Management',
+                  description: 'Create RFQs, collect bids, and award contracts.',
+                },
+              },
+              {
+                path: 'purchase-orders',
+                element: <PurchaseOrderManagement />,
+                handle: {
+                  navId: 'procurement-purchase-orders',
+                  label: 'Purchase Orders',
+                  description: 'Create, track, and manage purchase orders from creation to receipt.',
+                },
+              },
+              {
+                path: 'supplier-portal',
+                element: <SupplierPortal />,
+                handle: {
+                  navId: 'procurement-supplier-portal',
+                  label: 'Supplier Portal',
+                  description: 'Vendor self-service portal for order management and collaboration.',
+                },
+              },
+              {
+                path: 'three-way-match',
+                element: <ThreeWayMatchReview />,
+                handle: {
+                  navId: 'procurement-three-way-match',
+                  label: 'Three-Way Match',
+                  description: 'Review and approve purchase order, goods receipt, and invoice matches.',
+                },
               },
             ],
           },
